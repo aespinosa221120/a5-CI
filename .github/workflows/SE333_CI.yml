@@ -3,42 +3,41 @@ name: SE333_CI
 on:
   push:
     branches:
+      - main
       - part1-task2
 
 jobs:
   SE333_CI_JOB:
     runs-on: ubuntu-latest
-
     steps:
-      - name: checkout-repo
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: setupJava
+      - name: Setup Java
         uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'temurin'
+          architecture: x64
 
-      #  Static analysis in validate phase 
-      - name: Run Checkstyle (validate phase)
-        run: mvn validate checkstyle:checkstyle
+      - name: Install Linter
+        run: mvn checkstyle:checkstyle
 
-      # Upload XML report 
+      - name: Run Checkstyle
+        run: mvn checkstyle:check
+
       - name: Upload Checkstyle Result
         uses: actions/upload-artifact@v4
         with:
-          name: checkstyle-report
+          name: checkstyle-result
           path: target/checkstyle-result.xml
 
-      #  Run tests AFTER analysis
-      - name: Run Maven Test
-        run: mvn test
+      - name: Run Maven Tests
+        run: mvn clean test
 
-      # Generate coverage
-      - name: Jacoco Report
+      - name: Generate Jacoco Report
         run: mvn jacoco:report
 
-      # Upload XML coverage report
       - name: Upload Jacoco Report
         uses: actions/upload-artifact@v4
         with:
