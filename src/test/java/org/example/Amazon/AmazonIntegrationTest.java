@@ -2,7 +2,6 @@ package org.example.Amazon;
 
 import org.example.Amazon.Cost.*;
 import org.junit.jupiter.api.*;
-
 import java.util.List;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)

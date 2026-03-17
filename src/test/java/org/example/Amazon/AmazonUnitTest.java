@@ -3,9 +3,7 @@ package org.example.Amazon;
 import org.example.Amazon.Cost.*;
 import org.junit.jupiter.api.*;
 import org.mockito.*;
-
 import java.util.List;
-
 import static org.mockito.Mockito.*;
 
 public class AmazonUnitTest {
