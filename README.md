@@ -1,1 +1,1 @@
-#
+![Build Status](https://github.com/aespinosa221120/a5-CI/actions/workflows/SE333_CI.yml/badge.svg)

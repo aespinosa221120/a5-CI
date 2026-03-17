@@ -32,13 +32,13 @@ public class AmazonUnitTest {
     }
 
     @Test
-    @DisplayName("structural-based: verify add method is called on cart")
-    void testAddMethodCalled() {
-        Item item = new Item(ItemType.OTHER, "Book", 1, 15);
-        doNothing().when(mockCart).add(item);
+@DisplayName("structural-based: Amazon interacts with cart correctly")
+void testAmazonUsesCart() {
+    when(mockCart.getItems()).thenReturn(List.of());
 
-        mockCart.add(item);
+    Amazon amazon = new Amazon(mockCart, List.of(new RegularCost()));
+    amazon.calculate();
 
-        verify(mockCart, times(1)).add(item);
-    }
+    verify(mockCart, atLeastOnce()).getItems();
+}
 }
