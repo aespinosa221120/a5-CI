@@ -67,7 +67,7 @@
                 <version>3.5.2</version>
             </plugin>
 
-            <!-- ✅ Checkstyle (runs BEFORE tests) -->
+            <!-- Checkstyle (runs BEFORE tests) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -87,7 +87,7 @@
                 </executions>
             </plugin>
 
-            <!-- ✅ JaCoCo (runs AFTER tests) -->
+            <!-- JaCoCo (runs AFTER tests) -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>

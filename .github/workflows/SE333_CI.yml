@@ -3,42 +3,50 @@ name: SE333_CI
 on:
   push:
     branches:
-      - main
-      - part1-task2
+      main
 
 jobs:
-  SE333_CI_JOB:
+  build:
+
     runs-on: ubuntu-latest
+
     steps:
+
+      
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          java-version: '21'
-          distribution: 'temurin'
-          architecture: x64
+          distribution: temurin
+          java-version: 23
 
-      - name: Install Linter
-        run: mvn checkstyle:checkstyle
+      
+      - name: Cache Maven dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-maven
 
-      - name: Run Checkstyle
-        run: mvn checkstyle:check
+      
+      - name: Run Checkstyle (static analysis)
+        run: mvn checkstyle:checkstyle -Dcheckstyle.failOnViolation=false
 
-      - name: Upload Checkstyle Result
+      
+      - name: Run Tests
+        run: mvn -B test
+
+      
+      - name: Upload Checkstyle Report
         uses: actions/upload-artifact@v4
         with:
-          name: checkstyle-result
+          name: checkstyle-report
           path: target/checkstyle-result.xml
 
-      - name: Run Maven Tests
-        run: mvn clean test
-
-      - name: Generate Jacoco Report
-        run: mvn jacoco:report
-
-      - name: Upload Jacoco Report
+      
+      - name: Upload JaCoCo Coverage
         uses: actions/upload-artifact@v4
         with:
           name: jacoco-report
